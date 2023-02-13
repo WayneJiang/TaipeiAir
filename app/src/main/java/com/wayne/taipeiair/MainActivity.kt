@@ -9,47 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.wayne.taipeiair.databinding.ActivityMainBinding
 import com.wayne.taipeiair.repository.Repository
+import com.wayne.taipeiair.webservice.WebService
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mActivityMainBinding: ActivityMainBinding
-
-    private val mAppViewModel: AppViewModel by lazy {
-        ViewModelProvider(this)[AppViewModel::class.java]
-    }
-
-    private val mNavHostFragment by lazy {
-        supportFragmentManager.findFragmentById(R.id.fragment_container_primary) as NavHostFragment
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mActivityMainBinding.root)
-
-        Repository.setUpRepository(this)
-
-        mAppViewModel.queryUser().apply {
-            observe(this@MainActivity) {
-                mNavHostFragment.navController.apply {
-                    graph = navInflater.inflate(R.navigation.navigation_primary).apply {
-                        setStartDestination(
-                            if (it != null) {
-                                R.id.fragment_parking
-                            } else {
-                                R.id.fragment_login
-                            }
-                        )
-                    }
-                }
-
-                removeObservers(this@MainActivity)
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         window.apply {
             insetsController?.apply {
@@ -68,5 +37,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+
+        WebService.requestData {  }
     }
 }

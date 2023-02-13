@@ -1,10 +1,5 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.TaipeiAir" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:dialogTheme">@style/DialogFragment</item>
-    </style>
-
-    <style name="DialogFragment" parent="ThemeOverlay.Material3.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="Theme.TaipeiAir" parent="Theme.Material3.Light.NoActionBar">
     </style>
 </resources>
