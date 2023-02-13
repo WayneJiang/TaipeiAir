@@ -1,7 +1,6 @@
 package com.wayne.taipeiair.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +42,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                     }
                     FILTER_CATEGORY -> {
                         val chips = mutableListOf<Int>()
+
                         groupChip.apply {
                             var generatedId = ViewGroup.generateViewId()
                             addView(
@@ -56,6 +56,14 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
                                     )
+                                    chipBackgroundColor = resources.getColorStateList(
+                                        R.color.color_chip_background,
+                                        requireActivity().theme
+                                    )
+                                    chipStrokeColor = resources.getColorStateList(
+                                        R.color.color_chip_stroke,
+                                        requireActivity().theme
+                                    )
                                 }
                             )
                             chips.add(generatedId)
@@ -64,6 +72,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                             addView(
                                 Chip(requireContext()).apply {
                                     id = generatedId
+                                    isChecked =false
                                     isCheckable = true
                                     isClickable = true
                                     text = getString(R.string.value_2)
@@ -71,6 +80,14 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
                                     )
+                                    chipBackgroundColor = resources.getColorStateList(
+                                        R.color.color_chip_background,
+                                        requireActivity().theme
+                                    )
+                                    chipStrokeColor = resources.getColorStateList(
+                                        R.color.color_chip_stroke,
+                                        requireActivity().theme
+                                    )
                                 }
                             )
                             chips.add(generatedId)
@@ -79,6 +96,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                             addView(
                                 Chip(requireContext()).apply {
                                     id = generatedId
+                                    isChecked = false
                                     isCheckable = true
                                     isClickable = true
                                     text = getString(R.string.value_3)
@@ -86,6 +104,14 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
                                     )
+                                    chipBackgroundColor = resources.getColorStateList(
+                                        R.color.color_chip_background,
+                                        requireActivity().theme
+                                    )
+                                    chipStrokeColor = resources.getColorStateList(
+                                        R.color.color_chip_stroke,
+                                        requireActivity().theme
+                                    )
                                 }
                             )
                             chips.add(generatedId)
@@ -94,6 +120,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                             addView(
                                 Chip(requireContext()).apply {
                                     id = generatedId
+                                    isChecked = false
                                     isCheckable = true
                                     isClickable = true
                                     text = getString(R.string.value_4)
@@ -101,6 +128,14 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
                                     )
+                                    chipBackgroundColor = resources.getColorStateList(
+                                        R.color.color_chip_background,
+                                        requireActivity().theme
+                                    )
+                                    chipStrokeColor = resources.getColorStateList(
+                                        R.color.color_chip_stroke,
+                                        requireActivity().theme
+                                    )
                                 }
                             )
                             chips.add(generatedId)
@@ -109,6 +144,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                             addView(
                                 Chip(requireContext()).apply {
                                     id = generatedId
+                                    isChecked = false
                                     isCheckable = true
                                     isClickable = true
                                     text = getString(R.string.value_5)
@@ -116,20 +152,13 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
                                     )
-                                }
-                            )
-                            chips.add(generatedId)
-
-                            generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    isCheckable = true
-                                    isClickable = true
-                                    text = getString(R.string.value_6)
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
+                                    chipBackgroundColor = resources.getColorStateList(
+                                        R.color.color_chip_background,
+                                        requireActivity().theme
+                                    )
+                                    chipStrokeColor = resources.getColorStateList(
+                                        R.color.color_chip_stroke,
+                                        requireActivity().theme
                                     )
                                 }
                             )
@@ -139,12 +168,45 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                             addView(
                                 Chip(requireContext()).apply {
                                     id = generatedId
+                                    isChecked=false
+                                    isCheckable = true
+                                    isClickable = true
+                                    text = getString(R.string.value_6)
+                                    layoutParams = ViewGroup.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT
+                                    )
+                                    chipBackgroundColor = resources.getColorStateList(
+                                        R.color.color_chip_background,
+                                        requireActivity().theme
+                                    )
+                                    chipStrokeColor = resources.getColorStateList(
+                                        R.color.color_chip_stroke,
+                                        requireActivity().theme
+                                    )
+                                }
+                            )
+                            chips.add(generatedId)
+
+                            generatedId = ViewGroup.generateViewId()
+                            addView(
+                                Chip(requireContext()).apply {
+                                    id = generatedId
+                                    isChecked=false
                                     isCheckable = true
                                     isClickable = true
                                     text = getString(R.string.value_7)
                                     layoutParams = ViewGroup.LayoutParams(
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.WRAP_CONTENT
+                                    )
+                                    chipBackgroundColor = resources.getColorStateList(
+                                        R.color.color_chip_background,
+                                        requireActivity().theme
+                                    )
+                                    chipStrokeColor = resources.getColorStateList(
+                                        R.color.color_chip_stroke,
+                                        requireActivity().theme
                                     )
                                 }
                             )
