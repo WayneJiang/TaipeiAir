@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.search.SearchBar
-        android:id="@+id/bar_search"
-        android:layout_width="0dp"
+    <com.google.android.material.search.SearchView
+        android:id="@+id/view_search"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:text="@string/year_month"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bar_search" />
+        app:layout_constraintTop_toBottomOf="@id/view_search" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_category"
@@ -34,7 +34,7 @@
         android:text="@string/category"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toEndOf="@id/btn_year_month"
-        app:layout_constraintTop_toBottomOf="@id/bar_search" />
+        app:layout_constraintTop_toBottomOf="@id/view_search" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/layout_tab"

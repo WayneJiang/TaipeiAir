@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wayne.taipeiair.databinding.LayoutCityBinding
 import com.wayne.taipeiair.repository.entity.CityEntity
 
-class CityAdapter(private val value: Int) :
+class CityAdapter :
     ListAdapter<CityEntity, CityAdapter.CityViewHolder>(
         CityDiffUtilCallback()
     ) {
+
+    var value = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         return CityViewHolder(

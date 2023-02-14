@@ -14,9 +14,9 @@ internal interface CityEntityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(cityEntity: CityEntity)
 
-    @Query("SELECT YEAR_MONTH FROM CITY GROUP BY YEAR_MONTH")
-    fun queryYearMonthsInRecord(): LiveData<List<String>>
+    @Query("SELECT YEAR_MONTH FROM CITY GROUP BY YEAR_MONTH_INT ORDER BY YEAR_MONTH_INT ASC")
+    fun queryYearMonthsInRecordAsync(): LiveData<List<String>>
 
-    @Query("SELECT * FROM CITY WHERE YEAR_MONTH = :yearMonth")
-    fun queryByYearMonth(yearMonth: String): LiveData<List<CityEntity>>
+    @Query("SELECT * FROM CITY WHERE YEAR_MONTH IN (:yearMonths)")
+    fun queryByYearMonth(yearMonths: List<String>): List<CityEntity>
 }

@@ -17,9 +17,9 @@ object Repository {
     internal fun CityEntity.insert() =
         dbManager.getCityEntityDao().insert(this)
 
-    fun queryYearMonthsInRecord() =
-        dbManager.getCityEntityDao().queryYearMonthsInRecord()
+    fun queryYearMonthsInRecordAsync() =
+        dbManager.getCityEntityDao().queryYearMonthsInRecordAsync()
 
-    fun queryCitiesByYearMonth(yearMonth: String) =
-        dbManager.getCityEntityDao().queryByYearMonth(yearMonth)
+    fun queryCitiesByYearMonth(yearMonths: List<String>) =
+        dbManager.getCityEntityDao().queryByYearMonth(yearMonths)
 }

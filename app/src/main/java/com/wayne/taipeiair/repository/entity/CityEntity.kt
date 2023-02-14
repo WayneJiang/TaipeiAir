@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 data class CityEntity(
     @ColumnInfo(name = "YEAR_MONTH")
     var yearMonth: String = "",
+    @ColumnInfo(name = "YEAR_MONTH_INT")
+    var yearMonthInt: Int = -9999,
     @ColumnInfo(name = "NAME")
     var name: String = "",
     @ColumnInfo(name = "VALUE_1")

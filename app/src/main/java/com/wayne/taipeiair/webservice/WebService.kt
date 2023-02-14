@@ -38,11 +38,11 @@ object WebService {
             val logLength = message.length
             for (index in 0 until 100) {
                 if (logLength > end) {
-                    Log.d("Wayne", Uri.decode(message.substring(start, end)))
+//                    Log.d("Wayne", Uri.decode(message.substring(start, end)))
                     start = end
                     end += maxLength
                 } else {
-                    Log.d("Wayne", Uri.decode(message.substring(start, logLength)))
+//                    Log.d("Wayne", Uri.decode(message.substring(start, logLength)))
                     break
                 }
             }
@@ -90,8 +90,18 @@ object WebService {
                 val recordJson = adapter.fromJson(it.readText())
 
                 recordJson?.cities?.forEach { city ->
+                    val yearMonth = city.yearMonth.split(" ")
+                    val year = (yearMonth[0].split("年")[0]).toInt() * 100
+                    val month =
+                        if (yearMonth.size > 1) {
+                            (yearMonth[1].split("月")[0]).toInt()
+                        } else {
+                            0
+                        }
+
                     CityEntity(
-                        city.yearMonth,
+                        city.yearMonth.replace(" ", ""),
+                        (year + month),
                         city.name,
                         city.value1.toDoubleOrNull() ?: -9999.0,
                         city.value2.toDoubleOrNull() ?: -9999.0,

@@ -1,15 +1,20 @@
 package com.wayne.taipeiair.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.wayne.taipeiair.R
 import com.wayne.taipeiair.databinding.DialogFragmentFilterBinding
+import com.wayne.taipeiair.databinding.LayoutChipBinding
+import com.wayne.taipeiair.viewmodel.MainViewModel
 
 class FilterDialogFragment : BottomSheetDialogFragment() {
     companion object {
@@ -20,6 +25,10 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
     }
 
     private lateinit var mDialogFragmentFilterBinding: DialogFragmentFilterBinding
+
+    private val mMainViewModel by lazy {
+        ViewModelProvider(requireActivity())[MainViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,180 +45,98 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         isCancelable = false
 
         mDialogFragmentFilterBinding.apply {
+            btnConfirm.setOnClickListener {
+                updateFilter()
+
+                dismiss()
+            }
+
             requireArguments().apply {
-                when (getString(KEY_FILTER)) {
-                    FILTER_YEAR_MONTH -> {
-                    }
-                    FILTER_CATEGORY -> {
-                        val chips = mutableListOf<Int>()
+                groupChip.apply {
+                    when (getString(KEY_FILTER)) {
+                        FILTER_YEAR_MONTH -> {
+                            isSingleSelection = false
 
-                        groupChip.apply {
-                            var generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    text = getString(R.string.value_1)
-                                    isChecked = true
-                                    isCheckable = true
-                                    isClickable = true
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
-                                    )
-                                    chipBackgroundColor = resources.getColorStateList(
-                                        R.color.color_chip_background,
-                                        requireActivity().theme
-                                    )
-                                    chipStrokeColor = resources.getColorStateList(
-                                        R.color.color_chip_stroke,
-                                        requireActivity().theme
+                            mMainViewModel.queryYearMonthsInRecordAsync()
+                                .observe(viewLifecycleOwner) {
+                                    removeAllViews()
+
+                                    it.forEach { item ->
+                                        addView(
+                                            LayoutChipBinding.inflate(
+                                                LayoutInflater.from(
+                                                    requireContext()
+                                                )
+                                            ).root.apply {
+                                                id = ViewGroup.generateViewId()
+                                                text = item
+
+                                                layoutParams =
+                                                    ViewGroup.LayoutParams(
+                                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                                        ViewGroup.LayoutParams.WRAP_CONTENT
+                                                    )
+
+                                                mMainViewModel.yearMonthFilterLiveData.observe(
+                                                    viewLifecycleOwner
+                                                ) { selected ->
+                                                    isChecked = selected.contains(item)
+                                                }
+                                            }
+                                        )
+                                    }
+                                }
+                        }
+                        FILTER_CATEGORY -> {
+                            isSingleSelection = true
+
+                            mMainViewModel.categoryFilterLiveData.observe(viewLifecycleOwner) {
+                                removeAllViews()
+
+                                for (chip in 1..7) {
+                                    addView(
+                                        LayoutChipBinding.inflate(
+                                            LayoutInflater.from(
+                                                requireContext()
+                                            )
+                                        ).root.apply {
+                                            id = ViewGroup.generateViewId()
+                                            text =
+                                                when (chip) {
+                                                    1 -> {
+                                                        getString(R.string.value_1)
+                                                    }
+                                                    2 -> {
+                                                        getString(R.string.value_2)
+                                                    }
+                                                    3 -> {
+                                                        getString(R.string.value_3)
+                                                    }
+                                                    4 -> {
+                                                        getString(R.string.value_4)
+                                                    }
+                                                    5 -> {
+                                                        getString(R.string.value_5)
+                                                    }
+                                                    6 -> {
+                                                        getString(R.string.value_6)
+                                                    }
+                                                    else -> {
+                                                        getString(R.string.value_7)
+                                                    }
+                                                }
+
+                                            isChecked = (chip == it)
+
+                                            layoutParams =
+                                                ViewGroup.LayoutParams(
+                                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                                                )
+                                        }
                                     )
                                 }
-                            )
-                            chips.add(generatedId)
-
-                            generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    isChecked =false
-                                    isCheckable = true
-                                    isClickable = true
-                                    text = getString(R.string.value_2)
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
-                                    )
-                                    chipBackgroundColor = resources.getColorStateList(
-                                        R.color.color_chip_background,
-                                        requireActivity().theme
-                                    )
-                                    chipStrokeColor = resources.getColorStateList(
-                                        R.color.color_chip_stroke,
-                                        requireActivity().theme
-                                    )
-                                }
-                            )
-                            chips.add(generatedId)
-
-                            generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    isChecked = false
-                                    isCheckable = true
-                                    isClickable = true
-                                    text = getString(R.string.value_3)
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
-                                    )
-                                    chipBackgroundColor = resources.getColorStateList(
-                                        R.color.color_chip_background,
-                                        requireActivity().theme
-                                    )
-                                    chipStrokeColor = resources.getColorStateList(
-                                        R.color.color_chip_stroke,
-                                        requireActivity().theme
-                                    )
-                                }
-                            )
-                            chips.add(generatedId)
-
-                            generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    isChecked = false
-                                    isCheckable = true
-                                    isClickable = true
-                                    text = getString(R.string.value_4)
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
-                                    )
-                                    chipBackgroundColor = resources.getColorStateList(
-                                        R.color.color_chip_background,
-                                        requireActivity().theme
-                                    )
-                                    chipStrokeColor = resources.getColorStateList(
-                                        R.color.color_chip_stroke,
-                                        requireActivity().theme
-                                    )
-                                }
-                            )
-                            chips.add(generatedId)
-
-                            generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    isChecked = false
-                                    isCheckable = true
-                                    isClickable = true
-                                    text = getString(R.string.value_5)
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
-                                    )
-                                    chipBackgroundColor = resources.getColorStateList(
-                                        R.color.color_chip_background,
-                                        requireActivity().theme
-                                    )
-                                    chipStrokeColor = resources.getColorStateList(
-                                        R.color.color_chip_stroke,
-                                        requireActivity().theme
-                                    )
-                                }
-                            )
-                            chips.add(generatedId)
-
-                            generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    isChecked=false
-                                    isCheckable = true
-                                    isClickable = true
-                                    text = getString(R.string.value_6)
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
-                                    )
-                                    chipBackgroundColor = resources.getColorStateList(
-                                        R.color.color_chip_background,
-                                        requireActivity().theme
-                                    )
-                                    chipStrokeColor = resources.getColorStateList(
-                                        R.color.color_chip_stroke,
-                                        requireActivity().theme
-                                    )
-                                }
-                            )
-                            chips.add(generatedId)
-
-                            generatedId = ViewGroup.generateViewId()
-                            addView(
-                                Chip(requireContext()).apply {
-                                    id = generatedId
-                                    isChecked=false
-                                    isCheckable = true
-                                    isClickable = true
-                                    text = getString(R.string.value_7)
-                                    layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.WRAP_CONTENT
-                                    )
-                                    chipBackgroundColor = resources.getColorStateList(
-                                        R.color.color_chip_background,
-                                        requireActivity().theme
-                                    )
-                                    chipStrokeColor = resources.getColorStateList(
-                                        R.color.color_chip_stroke,
-                                        requireActivity().theme
-                                    )
-                                }
-                            )
+                            }
                         }
                     }
                 }
@@ -231,8 +158,48 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             }
     }
 
-    private fun setResult() =
-        requireArguments().apply {
+    private fun updateFilter() =
+        mDialogFragmentFilterBinding.apply {
+            requireArguments().apply {
+                when (getString(KEY_FILTER)) {
+                    FILTER_YEAR_MONTH -> {
+                        groupChip.apply {
+                            val selected = mutableListOf<String>()
+                            checkedChipIds.forEach {
+                                selected.add(groupChip.findViewById<Chip>(it).text.toString())
+                            }
 
+                            mMainViewModel.yearMonthFilterLiveData.postValue(selected)
+                        }
+                    }
+                    FILTER_CATEGORY -> {
+                        mMainViewModel.categoryFilterLiveData.postValue(
+                            when (groupChip.findViewById<Chip>(groupChip.checkedChipId).text) {
+                                getString(R.string.value_1) -> {
+                                    1
+                                }
+                                getString(R.string.value_2) -> {
+                                    2
+                                }
+                                getString(R.string.value_3) -> {
+                                    3
+                                }
+                                getString(R.string.value_4) -> {
+                                    4
+                                }
+                                getString(R.string.value_5) -> {
+                                    5
+                                }
+                                getString(R.string.value_6) -> {
+                                    6
+                                }
+                                else -> {
+                                    7
+                                }
+                            }
+                        )
+                    }
+                }
+            }
         }
 }

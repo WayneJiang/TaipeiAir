@@ -1,6 +1,7 @@
 package com.wayne.taipeiair.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,20 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wayne.taipeiair.R
 import com.wayne.taipeiair.databinding.FragmentMainBinding
-import com.wayne.taipeiair.repository.entity.CityEntity
-import com.wayne.taipeiair.viewmodel.GoodViewModel
 import com.wayne.taipeiair.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
     private lateinit var mFragmentMainBinding: FragmentMainBinding
 
-    private val mMainViewModel: MainViewModel by viewModels()
+    private val mMainViewModel by lazy {
+        ViewModelProvider(requireActivity())[MainViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +57,11 @@ class MainFragment : Fragment() {
             }.attach()
 
             btnYearMonth.setOnClickListener {
-
+                findNavController().navigate(
+                    R.id.action_to_filter, bundleOf(
+                        FilterDialogFragment.KEY_FILTER to FilterDialogFragment.FILTER_YEAR_MONTH
+                    )
+                )
             }
 
             btnCategory.setOnClickListener {
@@ -66,9 +71,32 @@ class MainFragment : Fragment() {
                     )
                 )
             }
-        }
 
-        queryData()
+            mMainViewModel.yearMonthFilterLiveData.observe(viewLifecycleOwner) {
+                mMainViewModel.queryCitiesByYearMonth(it)
+            }
+
+            mMainViewModel.goodLiveData.observe(viewLifecycleOwner) {
+                layoutTab.getTabAt(0)?.orCreateBadge?.apply {
+                    horizontalOffset = -20
+                    number = it.size
+                }
+            }
+
+            mMainViewModel.notBadLiveData.observe(viewLifecycleOwner) {
+                layoutTab.getTabAt(1)?.orCreateBadge?.apply {
+                    horizontalOffset = -20
+                    number = it.size
+                }
+            }
+
+            mMainViewModel.badLiveData.observe(viewLifecycleOwner) {
+                layoutTab.getTabAt(2)?.orCreateBadge?.apply {
+                    horizontalOffset = -20
+                    number = it.size
+                }
+            }
+        }
     }
 
     inner class PageAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
@@ -88,9 +116,4 @@ class MainFragment : Fragment() {
             return fragments[position]
         }
     }
-
-    private fun queryData() =
-        mMainViewModel.queryCitiesByYearMonth("111年 10月").observe(viewLifecycleOwner) {
-            GoodViewModel.goodLiveData.postValue(it)
-        }
 }
