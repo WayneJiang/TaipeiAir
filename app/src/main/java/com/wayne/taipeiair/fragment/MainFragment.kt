@@ -1,14 +1,13 @@
 package com.wayne.taipeiair.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -38,6 +37,17 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mFragmentMainBinding.apply {
+            viewSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    mMainViewModel.filterCity(p0)
+                    return true
+                }
+            })
+
             viewPager.adapter =
                 PageAdapter(requireActivity().supportFragmentManager, lifecycle)
 

@@ -47,6 +47,13 @@ class BadFragment : Fragment() {
                             delay(100)
                             submitList(it)
                         }
+
+                        tvNoData.visibility =
+                            if (it.isEmpty()) {
+                                View.VISIBLE
+                            } else {
+                                View.GONE
+                            }
                     }
                 }
             }

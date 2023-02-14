@@ -9,9 +9,7 @@ import com.wayne.taipeiair.databinding.LayoutCityBinding
 import com.wayne.taipeiair.repository.entity.CityEntity
 
 class CityAdapter :
-    ListAdapter<CityEntity, CityAdapter.CityViewHolder>(
-        CityDiffUtilCallback()
-    ) {
+    ListAdapter<CityEntity, CityAdapter.CityViewHolder>(CityDiffUtilCallback()) {
 
     var value = 1
 
@@ -34,32 +32,73 @@ class CityAdapter :
         fun bind(cityEntity: CityEntity, value: Int) = with(layoutCityBinding) {
             tvName.text = cityEntity.name
 
-            tvValue.text =
-                "${
-                    when (value) {
-                        1 -> {
-                            cityEntity.value1
+            tvYearMonth.text = cityEntity.yearMonth
+
+            when (value) {
+                1 -> {
+                    tvValue.text =
+                        if (cityEntity.value1 < 0) {
+                            "--"
+                        } else {
+                            "${cityEntity.value1}"
                         }
-                        2 -> {
-                            cityEntity.value2
+                    tvCategory.text = itemView.context.getString(R.string.value_1)
+                }
+                2 -> {
+                    tvValue.text =
+                        if (cityEntity.value2 < 0) {
+                            "--"
+                        } else {
+                            "${cityEntity.value2}"
                         }
-                        3 -> {
-                            cityEntity.value3
+                    tvCategory.text = itemView.context.getString(R.string.value_2)
+                }
+                3 -> {
+                    tvValue.text =
+                        if (cityEntity.value3 < 0) {
+                            "--"
+                        } else {
+                            "${cityEntity.value3}"
                         }
-                        4 -> {
-                            cityEntity.value4
+                    tvCategory.text = itemView.context.getString(R.string.value_3)
+                }
+                4 -> {
+                    tvValue.text =
+                        if (cityEntity.value4 < 0) {
+                            "--"
+                        } else {
+                            "${cityEntity.value4}"
                         }
-                        5 -> {
-                            cityEntity.value5
+                    tvCategory.text = itemView.context.getString(R.string.value_4)
+                }
+                5 -> {
+                    tvValue.text =
+                        if (cityEntity.value5 < 0) {
+                            "--"
+                        } else {
+                            "${cityEntity.value5}"
                         }
-                        6 -> {
-                            cityEntity.value6
+                    tvCategory.text = itemView.context.getString(R.string.value_5)
+                }
+                6 -> {
+                    tvValue.text =
+                        if (cityEntity.value6 < 0) {
+                            "--"
+                        } else {
+                            "${cityEntity.value6}"
                         }
-                        else -> {
-                            cityEntity.value7
+                    tvCategory.text = itemView.context.getString(R.string.value_6)
+                }
+                7 -> {
+                    tvValue.text =
+                        if (cityEntity.value7 < 0) {
+                            "--"
+                        } else {
+                            "${cityEntity.value7}"
                         }
-                    }
-                }"
+                    tvCategory.text = itemView.context.getString(R.string.value_7)
+                }
+            }
         }
     }
 }

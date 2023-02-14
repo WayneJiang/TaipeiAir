@@ -13,4 +13,6 @@
     <string name="value_5">一氧化碳濃度值</string>
     <string name="value_6">二氧化氮濃度值</string>
     <string name="value_7">臭氧最大小時值濃度值</string>
+    <string name="search_hint">搜尋城市…</string>
+    <string name="no_data">無任何相關資料</string>
 </resources>
