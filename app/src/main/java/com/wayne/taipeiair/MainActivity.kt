@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.Navigation
 import com.wayne.taipeiair.databinding.ActivityMainBinding
-import com.wayne.taipeiair.repository.Repository
+import com.wayne.taipeiair.fragment.AlertDialogFragment
 import com.wayne.taipeiair.webservice.WebService
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +37,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        WebService.requestData {  }
+        supportFragmentManager.findFragmentById(R.id.fragment_container_primary)
+            ?.childFragmentManager?.setFragmentResultListener(
+                AlertDialogFragment.KEY_REQUEST, this
+            ) { _, _ ->
+                getOpenData()
+            }
+
+        getOpenData()
     }
+
+    private fun getOpenData() =
+        WebService.requestData {
+            if (!it) {
+                Navigation.findNavController(this, R.id.fragment_container_primary)
+                    .navigate(R.id.action_to_alert)
+            }
+        }
 }

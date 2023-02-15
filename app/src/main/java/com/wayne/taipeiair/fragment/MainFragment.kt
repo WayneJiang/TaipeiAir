@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -38,12 +38,10 @@ class MainFragment : Fragment() {
 
         mFragmentMainBinding.apply {
             viewSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(p0: String?): Boolean {
-                    return false
-                }
+                override fun onQueryTextSubmit(query: String?) = false
 
-                override fun onQueryTextChange(p0: String?): Boolean {
-                    mMainViewModel.filterCity(p0)
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    mMainViewModel.filterCity(newText)
                     return true
                 }
             })

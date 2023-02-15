@@ -3,9 +3,6 @@ package com.wayne.taipeiair.repository
 import android.content.Context
 import androidx.room.Room
 import com.wayne.taipeiair.repository.entity.CityEntity
-import kotlinx.coroutines.*
-import java.time.YearMonth
-import kotlin.coroutines.CoroutineContext
 
 object Repository {
     private lateinit var dbManager: DBManager

@@ -6,8 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.wayne.taipeiair.repository.entity.CityEntity
-import com.wayne.taipeiair.webservice.json.City
-import java.time.YearMonth
 
 @Dao
 internal interface CityEntityDao {

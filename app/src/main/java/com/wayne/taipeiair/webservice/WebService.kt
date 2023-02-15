@@ -4,11 +4,9 @@ import android.net.Uri
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.wayne.taipeiair.repository.Repository.insert
 import com.wayne.taipeiair.repository.entity.CityEntity
-import com.wayne.taipeiair.webservice.json.City
 import com.wayne.taipeiair.webservice.json.RecordJson
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
@@ -38,11 +36,11 @@ object WebService {
             val logLength = message.length
             for (index in 0 until 100) {
                 if (logLength > end) {
-//                    Log.d("Wayne", Uri.decode(message.substring(start, end)))
+                    Log.d("Wayne", Uri.decode(message.substring(start, end)))
                     start = end
                     end += maxLength
                 } else {
-//                    Log.d("Wayne", Uri.decode(message.substring(start, logLength)))
+                    Log.d("Wayne", Uri.decode(message.substring(start, logLength)))
                     break
                 }
             }

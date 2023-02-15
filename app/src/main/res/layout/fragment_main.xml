@@ -4,18 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/view_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/bg_search_view"
-        android:iconifiedByDefault="false"
-        android:queryHint="@string/search_hint"
+        android:iconifiedByDefault="true"
+        app:defaultQueryHint="@string/search_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@null"
+        app:queryHint="@string/search_hint" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_year_month"

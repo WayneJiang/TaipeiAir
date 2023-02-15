@@ -7,7 +7,7 @@
     android:layout_marginTop="10dp"
     android:layout_marginEnd="30dp"
     android:layout_marginBottom="10dp"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +21,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_year_month"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +34,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="20dp"
+            android:textColor="@color/grey_A9A9A9"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name" />
@@ -43,6 +46,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="5dp"
+            android:textSize="18dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_category"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +59,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="20dp"
+            android:textColor="@color/grey_A9A9A9"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_value" />
